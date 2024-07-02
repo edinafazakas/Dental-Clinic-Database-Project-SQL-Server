@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Clinic Database Project Presentation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .image-container {
+            display: flex; /* or use display: inline-block; */
+        }
+
+        .image-container img {
+            margin-right: 0px; /* Adjust as needed to add space between images */
+        }
+
+        section {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dental Clinic Database Project Presentation</h1>
+    <h3>- Fazakas Edina -</h3>
+    <p>Grupa 30642</p>
+
+
+</header>
+
+<section>
+    <h2>Introductie</h2>
+    <p>Pe aceasta pagine o sa prezint proiectul meu, care este o baza de date pentru o clinica stomatologica.
+        Acest proiect a fost dezvoltat in SQL Server Management Studio pentru a organiza datele acestei clinici fictive.
+    </p>
+</section>
+
+<section>
+    <h2>Descrierea proiectului</h2>
+    <ul>
+        <li>Baza de date apartine unei clinici stomatologice</li>
+        <li>Contine 8 tabele: Medici, Tratamente, Pacienti, Servicii, Programari, Facturi, Plati, DetaliiFacturi.</li>
+        <li>Pentru a opera pe baza de date, au fost implementate:
+            <ul>
+                <li>▪Constrângeri</li>
+                <li>▪Indecşi – unique, clustered</li>
+                <li>▪Vederi</li>
+                <li>▪Proceduri stocate (CRUD)</li>
+                <li>▪Triggere DML</li>
+                <li>▪Triggere DDL</li>
+                <li>▪Cursoare</li>
+                <li>▪Utilizatori şi roluri; drepturi ale acestora asupraelementelor bazei de date</li>
+                <li>▪Job-uri Transact SQL</li>
+                <li>▪Strategii de backup/restore.</li>
+        </ul>
+        </li>
+        <li>Ensured data integrity through the use of constraints and relationships.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Schema bazei de date</h2>
+    <img src="schema.png" alt="Database Schema">
+</section>
+
+<section>
+    <h2>Constrangeri</h2>
+    <ul>
+        <li>1. Unicitate de email in tabelele Pacienti, Medici. </li>
+        <li>2. Numar pozitiv (DurataProgramare in Programari, Cost in Tratamente, Cantitate in DetaliiFacturi)</li>
+        <li>3. Verificare tipuri de valori(Consultatie, Tratament, Altele pentru TipServiciu si Neplatita, Platita pentru StatusPlata</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Indecsi</h2>
+    <ul>
+        <li>1. Index unic pe ProgramareID, Nume Prenume in Pacienti. </li>
+        <li>2. Clustered index pe Nume, Prenume in Medici.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Vederi</h2>
+    <ul>
+        <h3>1. Vedere pentru a vizualiza detaliile unei facturi.</h3>
+        <li><img src="VDetaliiFactura.png"></li>
+        <h3>2. Vedere pentru a vizualiza detaliile tratamentelor.</h3>
+        <li><img src="V_Tratamente.png"></li>
+        <h3>3. Vedere pentru a vizualiza totalul platilor efectuate de pacienti.</h3>
+        <li><img src="V_TotalPlatiPacienti.png"></li>
+        <h3>4. Vedere pentru a vizualiza medicii nu numarul de programari.</h3>
+        <li><img src="V_MediciCuProgramari.png"></li>
+        <h3>5. Vedere pentru a vizualiza pacientii fara programari.</h3>
+        <li><img src="V_PacientiFaraProgramari.png"></li>
+        <h3>6. Vedere pentru a vizualiza detaliile programarilor neplatite.</h3>
+        <li><img src="V_ProgramariNeplatite.png"></li>
+
+    </ul>
+</section>
+
+<section>
+    <h2>Proceduri stocate</h2>
+    <ul>
+        <li>1. Procedura stocata pentru a insera pacienti. </li>
+        <li>2. Procedura stocata pentru a edita detaliile medicilor.</li>
+        <li>3. Procedura stocata pentru a sterge programari. </li>
+        <li>4. Procedura stocata pentru a sterge pacienti. </li>
+        <li>5. Procedura stocata pentru a obtine pacienti dupa ID. </li>
+        <li>6. Procedura stocata pentru a obtine toti pacientii. </li>
+        <div class="image-container">
+            <img src="proceduri_stocate_1.png" alt="Image 1">
+            <img src="proceduri_stocate_2.png" alt="Image 2">
+        </div>
+
+    </ul>
+</section>
+
+<section>
+    <h2>Triggere DML</h2>
+    <h3>Triggere DML se folosesc pentru a aplica modificari in baza de date dupa anumite operatii ca si inserare sau stergere</h3>
+    <ul>
+        <li>1. Trigger dupa inserare in tabelul de tratamente pentru a edita pretul total al costurilor.</li>
+        <li>2. Trigger dupa update in tabelul de tratamente pentru a edita pretul total al costurilor. </li>
+        <li>3. Trigger dupa delete in tabelul de tratamente pentru a edita pretul total al costurilor. </li>
+        <li>4. Trigger pentru a preveni strergerea pacientilor cu programari. </li>
+        <li>5. Trigger dupa insert, update, delete pentru a edita valoarea medie a costurilor pentru tratamente. </li>
+        <div class="image-container">
+            <img src="triggere_dml_1.png" alt="Image 1">
+            <img src="triggere_dml_2.png" alt="Image 2">
+        </div>
+    </ul>
+</section>
+
+
+<section>
+    <h2>Triggere DDL</h2>
+    <ul>
+        <li>1. Trigger DDL pentru a preveni stergerea unei tabele in baza de date </li>
+        <li>2. Trigger DDL pentru a preveni alterarea unei tabele in baza de date </li>
+        <li>3. Trigger DDL pentru a captura si a face log despre schimbari in baza de date.</li>
+        <li>4. Trigger DDL pentru a captura si a face log despre schimbari despre roluri la nivel de server.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Cursoare</h2>
+    <ul>
+        <h3>1. Cursor pentru a afisa informatii despre pacienti. </h3>
+        <div class="image-container">
+            <img src="cursor1_cod.png" alt="Image 1">
+            <img src="cursor1_rez.png" alt="Image 2">
+        </div>
+        <h3>2. Cursor pentru a edita costuri de tratamente - le marim cu 10%. </h3>
+        <div class="image-container">
+            <img src="cursor2_cod.png" alt="Image 1">
+            <img src="cursor2_rez.png" alt="Image 2">
+        </div>
+        <h3>3. Cursor pentru a afisa informatii despre medici. </h3>
+        <div class="image-container">
+            <img src="cursor3_cod.png" alt="Image 1">
+            <img src="cursor3_rez.png" alt="Image 2">
+        </div>
+        <h3>4. Cursor pentru a apdata facture bazate pe pret total(platit sau neplatit). </h3>
+        <div class="image-container">
+            <img src="cursor4_cod.png" alt="Image 1">
+            <img src="cursor4_rez.png" alt="Image 2">
+        </div>
+        <h3>5. Cursor pentru a afisa costul total de tratament pentru fiecare pacient. </h3>
+        <div class="image-container">
+            <img src="cursor5_cod.png" alt="Image 1">
+            <img src="cursor5_rez.png" alt="Image 2">
+        </div>
+    </ul>
+</section>
+
+<section>
+    <h2>Utilizatori şi roluri; drepturi ale acestora</h2>
+    <ul>
+        <li>Trei tipuri de roluri:
+        <p><li>▪Rol Pacient</li></p>
+        <p><li>▪Rol Medic</li></p>
+        <p><li>▪Rol Administrator</li></p>
+        </li>
+        <li>Pacientii au rol de RolPacient.</li>
+        <li>Medicii au rol de RolMedic</li>
+        <li>Adminul are rol de RolAdmin</li>
+        <nobr></nobr>
+        <h3>Administratorul are drept de select, insert, update, delete pe fiecare tabel</h3>
+        <img src="drept_admin.png" alt="Image 1">
+        <h3>Pacientul are drept de a selecta in tabelul Pacienti, si de select, insert, update, delete pe tabelul Programari</h3>
+        <img src="drept_pacient.png" alt="Image 1">
+        <h3>Medicul are drept de select, insert, update, delete pe tabelele Medici, Programari, Tratamente, Servicii.</h3>
+        <img src="drept_medic.png" alt="Image 1">
+        <h3>Creare useri:</h3>
+        <img src="creare_useri.png" alt="Image 1">
+    </ul>
+</section>
+
+<section>
+    <h2>Job-uri Transact SQL</h2>
+    <ul>
+        <li>1. Job Transact SQL pentru backup database.</li>
+        <li>2. Job Transact SQL pentru backup de log-uri de tranzactie.</li>
+        <li>2. Job Transact SQL pentru a updata salariile medicilor.</li>
+        <li>2. Job Transact SQL pentru a backup saptamanal.</li>
+        <div class="image-container">
+            <img src="job_transact_sql_1.png" alt="Image 1">
+            <img src="job_transact_sql_2.png" alt="Image 2">
+        </div>
+    </ul>
+</section>
+
+<section>
+    <h2>Strategii de backup/restore</h2>
+    <ul>
+        <img src="backup_restore.png" alt="Image 2">
+    </ul>
+</section>
+
+<section>
+    <h2>Concluzie</h2>
+    <p>
+        In concluzie, proiectul de baza de date pentru clinica stomatologica ofera o cale eficienta si organizata de a administra datele inregistrate despre pacienti, medici, plati sau programari.
+    </p>
+</section>
+
+<footer>
+</footer>
+</body>
+</html>
